@@ -1,0 +1,41 @@
+{
+  "network": "StudioNet",
+  "chain_id": 61999,
+  "source_commit": "1d1eb44295de707d65fc35a9004a5dbaaffd0daf",
+  "source_path": "contracts/MarginalContributionPool.py",
+  "source_sha256": "d4c8ff97d1a4800fbdc77e9e6990a3efa86b6adaffb6e4e814c5d7d3472d3490",
+  "deployed_source_matches_pinned_source": true,
+  "runner": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6",
+  "constructor_args": [
+    "Marginal Contribution Pool",
+    1792497600,
+    1792584000,
+    1792670400
+  ],
+  "contract_address": "0x81a7F2829b6B9E2eE8e311A7d5fe56Dd8073236A",
+  "explorer_contract_url": "https://explorer-studio.genlayer.com/address/0x81a7F2829b6B9E2eE8e311A7d5fe56Dd8073236A",
+  "deployment": {
+    "tx_hash": "0x96e9beb51a8f71ab6dd8ca9bdaef2a56074bfab479f8bc3a203f632df163cafc",
+    "explorer_url": "https://explorer-studio.genlayer.com/tx/0x96e9beb51a8f71ab6dd8ca9bdaef2a56074bfab479f8bc3a203f632df163cafc",
+    "status": "FINALIZED",
+    "genvm_result": "SUCCESS",
+    "consensus_result": "Accepted"
+  },
+  "pool_readback": [
+    "Marginal Contribution Pool",
+    "0x7b5cff43d9b7bbc6f859be8f28cfb385c1ee68f2",
+    false,
+    false,
+    false,
+    0,
+    0,
+    0,
+    0,
+    1792497600,
+    1792584000,
+    1792670400,
+    0,
+    0
+  ],
+  "scope": "Deployment and constructor read-back only; no live contribution judgment or payout demonstrated."
+}

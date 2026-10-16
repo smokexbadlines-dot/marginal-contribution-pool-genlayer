@@ -2,6 +2,14 @@
 
 A standalone GenLayer Native Intelligent Contract that funds a bounded set of public contribution goals. Contributors submit pinned artifacts in a commit–reveal round. GenLayer validators judge whether each artifact meets each claimed goal. Deterministic contract code pays only for goals that the submission adds to the pool's accepted coverage.
 
+## StudioNet deployment
+
+- [Contract on GenLayer Studio Explorer](https://explorer-studio.genlayer.com/address/0x81a7F2829b6B9E2eE8e311A7d5fe56Dd8073236A)
+- [Deployment transaction](https://explorer-studio.genlayer.com/tx/0x96e9beb51a8f71ab6dd8ca9bdaef2a56074bfab479f8bc3a203f632df163cafc): `FINALIZED`, GenVM `SUCCESS`
+- [Pinned deployed source](https://github.com/smokexbadlines-dot/marginal-contribution-pool-genlayer/blob/1d1eb44295de707d65fc35a9004a5dbaaffd0daf/contracts/MarginalContributionPool.py) and [deployment proof](deploy/proof.json)
+
+Explorer's displayed contract code matches the pinned source exactly. The finalized `pool()` read-back shows the title and deadlines in `deploy/proof.json`, with zero goals, funding, submissions, and payouts. The pool mechanism has **not** yet been exercised live; the deployment proves constructor execution, not validator judgments or transfers.
+
 ## Mechanism
 
 The sponsor freezes up to six observable goals, each with a fixed GEN reward. A contributor commits to an artifact and a bitmask of claimed goals before the reveal window. After reveal, anyone can call `resolve_next()`; the contract itself selects the earliest pending submission and its first unassessed, uncovered claimed goal. The caller cannot select a candidate, goal, verdict, amount, or recipient.
@@ -61,13 +69,14 @@ genvm-lint check contracts/MarginalContributionPool.py
 
 The 14 direct-mode tests use mocked web and LLM responses. They cover ordered marginal rewards, partial and duplicate coverage, mask and commitment guards, copied commitments, forged leader reports, wrong hashes, a source change during multi-goal assessment, unavailable and malformed evidence, bounded retries, permissions, replay, deadlines, emitted transfer instructions, and permissionless refunds. They do **not** prove live validator consensus or actual GEN transfers.
 
-## Live proof before submission
+## Further live proof
 
-1. Probe the pinned runner with a small contract on the target GenLayer network. Probe the selected raw GitHub URLs from validators, and measure their raw byte lengths against the 12,000-byte cap.
-2. Deploy this exact source from a pushed commit. Verify the on-chain source matches the Git blob byte for byte.
-3. Use two narrow goals and two pinned artifacts to demonstrate a partial first contribution, a second contribution that fills the remaining goal, and a redundant duplicate. Also demonstrate a wrong-hash rejection and a permissionless expiry refund. Use an artifact containing a prompt-injection attempt as an adversarial case.
-4. For every transaction, record transaction hash, finalization status, leader execution result, and state read-back. Verify outgoing GEN transfers or balance changes separately. A finalized transaction with failed execution is not a successful demo.
-5. Publish a release manifest with source commit, blob hash, runner, network, constructor arguments, contract address, receipts, expected failures, and read-backs. The public repo and explorer links must resolve without login before Portal submission.
+The exact source is deployed and its constructor transaction finalized successfully. To demonstrate the contribution mechanism itself:
+
+1. Probe selected raw GitHub artifact URLs from validators and measure their raw byte lengths against the 12,000-byte cap.
+2. Add two narrow goals, seal and fund the pool, then demonstrate a partial first contribution, a second contribution that fills the remaining goal, and a redundant duplicate. Also demonstrate a wrong-hash rejection and a permissionless expiry refund. Use an artifact containing a prompt-injection attempt as an adversarial case.
+3. For every transaction, record transaction hash, finalization status, leader execution result, and state read-back. Verify outgoing GEN transfers or balance changes separately. A finalized transaction with failed execution is not a successful demo.
+4. Extend the proof manifest with those receipts and read-backs. The current manifest documents deployment and constructor state only.
 
 ## Limits
 
